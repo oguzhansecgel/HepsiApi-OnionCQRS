@@ -20,9 +20,9 @@ namespace HepsiApi.Domain.Entities
             Priorty = priorty;
         }
 
-        public required int ParentID { get; set; }
-        public required string Name { get; set; }
-        public required int Priorty { get; set; }
+        public  int ParentID { get; set; }
+        public  string Name { get; set; }
+        public  int Priorty { get; set; }
         public ICollection<Detail> Details { get; set; }
         public ICollection<Product> Products{ get; set; }
     }
