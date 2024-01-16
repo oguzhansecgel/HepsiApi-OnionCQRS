@@ -33,6 +33,7 @@ namespace HepsiApi.Application.Features.Products.Queries.GettAllProducts
                 product.Price -= (product.Price * product.Discount / 100);
             }
             return map;
+            //throw new System.Exception("Hata Mesajı");
         }
     }
 }
