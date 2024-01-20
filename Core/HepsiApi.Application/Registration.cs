@@ -25,7 +25,7 @@ namespace HepsiApi.Application
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehavior<,>));
 
-
+ 
         }
 
         private static IServiceCollection AddRulesFromAssemblyContaining(this IServiceCollection services, Assembly assembly,Type type)
