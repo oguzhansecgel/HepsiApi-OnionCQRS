@@ -4,6 +4,10 @@ using HepsiApi.Infrastructure;
 using HepsiApi.Mapper;
 using HepsiApi.Application.Exception;
 using Microsoft.OpenApi.Models;
+using HepsiApi.Application.Features.Products.Command.UpdateProduct;
+using MediatR;
+using HepsiApi.Application.Features.Products.Command.CreateProduct;
+using HepsiApi.Application.Features.Products.Command.DeleteProduct;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +17,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddTransient<IRequestHandler<UpdateProductCommandRequest, Unit>, UpdateProductCommandHandler>();
+builder.Services.AddTransient<IRequestHandler<DeleteProductCommandRequest, Unit>, DeleteProductCommandHandler>();
+builder.Services.AddTransient<IRequestHandler<CreateProductCommandRequest, Unit>, CreateProductCommandHandler>();
 
 
 var env = builder.Environment;

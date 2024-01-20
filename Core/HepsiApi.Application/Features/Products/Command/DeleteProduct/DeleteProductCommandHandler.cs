@@ -1,6 +1,10 @@
-﻿using HepsiApi.Application.Interface.UnitOfWorks;
+﻿using HepsiApi.Application.Bases;
+using HepsiApi.Application.Features.Products.Rules;
+using HepsiApi.Application.Interface.AutoMapper;
+using HepsiApi.Application.Interface.UnitOfWorks;
 using HepsiApi.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,22 +13,22 @@ using System.Threading.Tasks;
 
 namespace HepsiApi.Application.Features.Products.Command.DeleteProduct
 {
-    public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommandRequest, Unit>
+    public class DeleteProductCommandHandler :BaseHandler, IRequestHandler<DeleteProductCommandRequest, Unit>
     {
-        private readonly IUnitOfWork _unitOfWork;
+        
 
-        public DeleteProductCommandHandler(IUnitOfWork unitOfWork)
+        public DeleteProductCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(mapper, unitOfWork, httpContextAccessor)
         {
-            _unitOfWork = unitOfWork;
+             
         }
 
         public async Task<Unit> Handle(DeleteProductCommandRequest request, CancellationToken cancellationToken)
         {
-            var product = await _unitOfWork.GetReadRepository<Product>().GetAsync(x => x.ID == request.Id && !x.IsDeleted);
+            var product = await unitOfWork.GetReadRepository<Product>().GetAsync(x => x.ID == request.Id && !x.IsDeleted);
             product.IsDeleted = true;
 
-            await _unitOfWork.GetWriteRepository<Product>().UpdateAsync(product);
-            await _unitOfWork.SaveAsync();
+            await unitOfWork.GetWriteRepository<Product>().UpdateAsync(product);
+            await unitOfWork.SaveAsync();
             return Unit.Value;
         }
     }
