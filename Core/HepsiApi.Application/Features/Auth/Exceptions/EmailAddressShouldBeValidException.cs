@@ -1,0 +1,13 @@
+﻿using HepsiApi.Application.Bases;
+
+namespace HepsiApi.Application.Features.Auth.Exceptions
+{
+    public class EmailAddressShouldBeValidException : BaseExceptions
+    {
+        public EmailAddressShouldBeValidException() : base("Böyle Bir Email Adresi Bulunmamaktadır.") { }
+
+
+    }
+
+   
+}
