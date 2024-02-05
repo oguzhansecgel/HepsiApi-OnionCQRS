@@ -19,6 +19,7 @@ namespace HepsiApi.Domain.Entities
             Name = name;
         }
         public  string Name { get; set; }
+        ssss
         
     }
 }
